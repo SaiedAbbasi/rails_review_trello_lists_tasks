@@ -11,10 +11,10 @@ class TasksController < ApplicationController
   end
 
   def create
-    @list = List.find(params[:list_id])
-    @task = @list.tasks.build(task_params)
+    @list = List.find(params[:task_list_id])
+    @task = @list.tasks.build(description: task_params[:description], priority: task_params[:priority])
     if @list.save
-      redirect_to lists_path
+      render json: {html: 'hi'}
     else 
       render new
     end
@@ -38,7 +38,7 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:title, :description, :priority)
+      params.permit(:description, :priority, :task_list_id)
     end
 
 end

@@ -14,16 +14,18 @@ ListsController.prototype.init = function(){
   var that = this           
   $('#add_list').submit(function(event){
     event.preventDefault();
-    //that.$addTaskForm.show();
-   
+    var listTitle 
+    listTitle = that.$listTitleInput.val();
+    that.$addTaskForm.show();
     $.ajax({
       url: '/lists',
       type: 'POST',
-      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', '#{form_authenticity_token}')}
-      // ,
-      // success: function(){
-      //   // to be added later
-      // }
+      data: {title: listTitle},
+      success: function(data){
+        for(var i = 0; i < data.all_lists.length; i++) {
+          $('#select_list').append(data.all_lists[i])
+        }
+      }
     })
     // var myList = new List(that.$listTitleInput.val());
     // myList.build();

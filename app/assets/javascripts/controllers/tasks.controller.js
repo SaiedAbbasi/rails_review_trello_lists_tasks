@@ -14,10 +14,24 @@ TasksController.prototype.init = function(){
   this.$addTaskForm.submit(function(event){
     event.preventDefault();
     var listIndex = that.$selectListMenu.val();
-    // var list = List.find(listIndex);
+    // var list = 
     // var myTask = new Task(that.$taskDescriptionInput.val(), that.$taskPriorityInput.val(), list);
     // myTask.build();
     // that.destroy();
+    var taskDescription
+    var taskPriority
+    var taskListId
+    taskDescription = that.$taskDescriptionInput.val();
+    taskPriority = that.$taskPriorityInput.val();
+    taskListId = $('select option:selected').val();
+    $.ajax({
+      url: '/tasks',
+      type: 'POST',
+      data: {description: taskDescription, priority: taskPriority, task_list_id: taskListId},
+      success: function(data){
+        debugger;
+      }
+    })
   })    
 };
 

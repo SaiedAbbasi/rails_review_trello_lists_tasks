@@ -10,14 +10,11 @@ def index
   end
 
   def create
-   
-    binding.pry
-    @list = List.new(list_params)
+    @list = List.new(title: params[:title])
     if @list.save
-      redirect_to lists_path
+      render json: {title: @list.title, id: @list.id, all_lists: @list.optionEl}
     else 
       render new_list
-
     end
   end
 
