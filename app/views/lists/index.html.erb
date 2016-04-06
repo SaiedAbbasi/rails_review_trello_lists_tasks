@@ -1,0 +1,10 @@
+
+ <h1>List of lists</h1>
+<section id="lists">
+<ul>
+<% @lists.each do |list| %>
+    <li><%= link_to(list.title, list) %></li>
+<% end %>
+</ul>
+</section>
+
