@@ -13,9 +13,11 @@ class TasksController < ApplicationController
   def create
     @list = List.find(params[:task_list_id])
     @task = @list.tasks.build(description: task_params[:description], priority: task_params[:priority])
+    tasks = @list.tasks.all
+
     if @list.save
-      render json: {html: 'hi'}
-    else 
+      render json: {list: @list, task: tasks}
+    else
       render new
     end
   end
@@ -34,7 +36,7 @@ class TasksController < ApplicationController
     @task.delete
   end
 
-  
+
   private
 
     def task_params
